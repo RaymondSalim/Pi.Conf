@@ -1,15 +1,15 @@
 version: "3"
 services:
-  node:
-    image: "node:lts-alpine"
-    user: "node"
-    working_dir: /home/node/app
-    volumes:
-      - pairdrop:/home/node/app
-    command: ash -c "npm i && npm run start:prod"
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-volumes:
   pairdrop:
-    external: false
+    image: lscr.io/linuxserver/pairdrop:1.4.5
+    container_name: pairdrop
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - RATE_LIMIT=false #optional
+      - WS_FALLBACK=false #optional
+      - RTC_CONFIG= #optional
+    ports:
+      - 3000:3000
+    restart: unless-stopped
