@@ -1,0 +1,21 @@
+version: "3"
+services:
+  pialert:
+    container_name: pialert
+    image: "jokobsk/pi.alert:latest"      
+    network_mode: "host"        
+    restart: unless-stopped
+    volumes:
+      - pi_alert:/home/pi/pialert
+      # - ./temp/local/path/pialert/config:/home/pi/pialert/config
+      # - ./temp/local/path/pialert/db:/home/pi/pialert/db      
+      # (optional) useful for debugging if you have issues setting up the container
+      # - ./temp/local/path/logs:/home/pi/pialert/front/log
+    environment:
+      - TZ=Asia/Jakarta      
+      - HOST_USER_ID=1000
+      - HOST_USER_GID=1000
+      - PORT=20211
+volumes:
+  pi_alert:
+    external: false
